@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <title> New User </title>
+</head>
+<body>
+<form th:method="Post" th:action="@{/admin/new}" th:object = "${addUser}">
+    <label for="username"> Enter username: </label>
+    <input type = "text" th:field="*{username}" id="username" />
+    <br>
+    <label for="password"> Enter password: </label>
+    <input type = "text" th:field="*{password}" id="password"/>
+    <br>
+    <label for="firstname"> Enter first name: </label>
+    <input type = "text" th:field="*{firstName}" id="firstname"/>
+    <br>
+    <label for="lastname"> Enter last name: </label>
+    <input type = "text" th:field="*{lastName}" id="lastname"/>
+    <br>
+    <label for="age"> Enter age: </label>
+    <input type = "text" th:field="*{age}" id="age"/>
+    <br>
+    <label>Roles:
+        <input type="checkbox" name="roles"
+               th:each="role : ${allRoles}"
+               th:text="${role.role}"
+               th:value="${role.id}"
+               th:field="*{roles}"
+        />
+    </label>
+    <br>
+    <input type="submit" value="Add new user"/>
+    <br>
+    <input type="button" value="Logout"
+           onclick="window.location.href = '/logout'">
+</form>
+</body>
+
+</html>
