@@ -4,8 +4,7 @@ import com.task312.model.Role;
 import com.task312.model.User;
 import com.task312.repository.RoleRepository;
 import com.task312.service.UserService;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@EnableWebSecurity
-@EnableMethodSecurity
 public class AdminController {
 
     private UserService userService;

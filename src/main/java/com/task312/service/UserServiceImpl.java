@@ -41,7 +41,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(User user) {
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+
+        if (!(userFromDb.get().getPassword().equals(encodedPassword))) {
+            user.setPassword(encodedPassword);
+        }
+
         userRepository.save(user);
         return true;
     }

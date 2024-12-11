@@ -24,7 +24,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/")
                         .permitAll()
-                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated())
                         .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
