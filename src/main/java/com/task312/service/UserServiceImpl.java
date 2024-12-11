@@ -45,6 +45,8 @@ public class UserServiceImpl implements UserService {
 
         if (!(userFromDb.get().getPassword().equals(encodedPassword))) {
             user.setPassword(encodedPassword);
+        } else {
+            user.setPassword(userFromDb.get().getPassword());
         }
 
         userRepository.save(user);
