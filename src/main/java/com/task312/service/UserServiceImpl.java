@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -41,12 +40,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(User user) {
         Optional<User> userFromDb = userRepository.findByUsername(user.getUsername());
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        if (!(userFromDb.get().getPassword().equals(encodedPassword))) {
-            user.setPassword(encodedPassword);
-        } else {
+        if (bCryptPasswordEncoder.matches(user.getPassword(),userFromDb.get().getPassword())) {
             user.setPassword(userFromDb.get().getPassword());
+        } else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
 
         userRepository.save(user);

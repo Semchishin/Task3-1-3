@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -102,8 +103,19 @@ public class User implements UserDetails {
         return password;
     }
 
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
     public Set<Role> getRoles() {
         return roles;
+    }
+    public String getRolesToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Role role: roles){
+            stringBuilder.append(role.getRole().replace("ROLE_","")).append(" ");
+        }
+        return stringBuilder.toString();
     }
 
     public void setRoles(Set<Role> roles) {
@@ -146,4 +158,16 @@ public class User implements UserDetails {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && username.equals(user.username) && password.equals(user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password);
+    }
 }
