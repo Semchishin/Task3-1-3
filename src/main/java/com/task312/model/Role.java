@@ -3,6 +3,7 @@ package com.task312.model;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,8 +18,8 @@ public class Role implements GrantedAuthority {
     private String role;
 
     @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 
     @Override
     public String getAuthority() {
@@ -31,6 +32,10 @@ public class Role implements GrantedAuthority {
 
     public Role(long id) {
         this.id = id;
+    }
+
+    public Role (String role){
+        this.role = role;
     }
 
     public Role(long id, String role) {

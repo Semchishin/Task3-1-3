@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Users</title>
+    <!--    Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+<!--Верхняя панель навигации-->
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" aria-disabled="true"> <strong>
+            <tr th:object="${currentUser}">
+                <td th:utext="${currentUser.getUsername()}">...</td>
+            </tr>
+        </strong> with roles:
+            <tr th:object="${currentUser}">
+                <td th:utext="${currentUser.getRolesToString()}">...</td>
+            </tr>
+        </a>
+        <ui class="nav-item">
+            <a class="nav-link text-secondary" href="/logout" aria-disabled="false"> Logout</a>
+        </ui>
+    </div>
+</nav>
+<!--Верхняя панель навигации-->
+<!--Боковая панель навигации-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col bg-white px-0">
+            <div class="d-flex flex-column">
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-user-tab" data-bs-toggle="pill"
+                       role="tab" href="#v-pills-user" aria-controls="v-pills-user"
+                       aria-selected="true">User
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 vh-100 bg-light">
+            <div class="tab-pane fade show active" id="v-pills-user" role="tabpanel"
+                 aria-labelledby="v-pills-user-tab">
+                <div th:replace="admin :: userInfo"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Панель администратора-->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+</body>
+</html>
