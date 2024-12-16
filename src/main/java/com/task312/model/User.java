@@ -34,8 +34,10 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
     @ManyToMany(fetch = FetchType.LAZY)
-
-    private Set<Role> roles = new HashSet<Role>();
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
+    private Set<Role> roles;
 
     @Column(name = "password")
     @NotEmpty

@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority {
 
     @Transient
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     @Override
     public String getAuthority() {

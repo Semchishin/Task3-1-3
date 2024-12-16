@@ -32,21 +32,20 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         return "admin";
     }
+    @GetMapping ("/admin/updateUser/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+        userService.updateUser(user);
+        return "redirect:/admin";
+    }
+
     @PostMapping("admin/updateUser/{id}")
-    public String updateUser(@ModelAttribute("newUser") User user, @PathVariable("id") Long id,
-                             @RequestParam(value = "userRolesSelector") String[] selectResult) throws Exception {
-        for (String s : selectResult) {
-            user.addRole(roleRepository.findByRole("ROLE_" + s));
-        }
+    public String updateUser(@ModelAttribute("newUser") User user, @PathVariable("id") Long id) {
         userService.updateUser(user);
         return "redirect:/admin";
     }
 
     @PostMapping("/admin/new")
-    public String create(@ModelAttribute("newUser") User user,  @RequestParam(value = "checkedRoles") String[] selectResult) {
-        for (String s : selectResult) {
-            user.addRole(roleRepository.findByRole("ROLE_"+s));
-        }
+    public String create(@ModelAttribute("newUser") User user) {
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -55,5 +54,13 @@ public class AdminController {
     public String deleteUser(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping(value = "admin/new")
+    public String addNewUser(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        model.addAttribute("user", userRepository.findById(user.getId()));
+        model.addAttribute("role", user.getRoles());
+        return "/admin";
     }
 }
